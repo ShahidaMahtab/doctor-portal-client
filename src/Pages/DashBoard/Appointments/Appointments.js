@@ -11,14 +11,18 @@ const Appointments = ({ date }) => {
   const { user, token } = useAuth();
   const [appointments, setAppointments] = useState([]);
   useEffect(() => {
-    const url = `https://ancient-eyrie-18743.herokuapp.com/appointments?email=${user.email}&date=${date}`;
+    const url = `https://ancient-eyrie-18743.herokuapp.com/appointments?email=${
+      user.email
+    }&date=${date.toLocaleDateString()}`;
     fetch(url, {
       headers: {
         authorization: `Bearer ${token}`,
       },
     })
       .then((res) => res.json())
-      .then((data) => setAppointments(data));
+      .then((data) => {
+        setAppointments(data);
+      });
   }, [date, user.email, token]);
   return (
     <>
