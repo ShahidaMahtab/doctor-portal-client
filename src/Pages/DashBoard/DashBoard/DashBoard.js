@@ -24,12 +24,14 @@ import MakeAdmin from "../MakeAdmin/MakeAdmin";
 import AddDoctor from "../AddDoctor/AddDoctor";
 import useAuth from "../../../hooks/useAuth";
 import AdminRoute from "../../Login/AdminRoute/AdminRoute";
+import Payment from "../Payment/Payment";
 const drawerWidth = 200;
 
 function DashBoard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   let { path, url } = useRouteMatch();
+
   const { admin } = useAuth();
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -106,14 +108,13 @@ function DashBoard(props) {
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },
@@ -149,9 +150,12 @@ function DashBoard(props) {
       >
         <Toolbar />
         <Switch>
-          <Route exact path={path}>
+          <Route exact path={`${path}/`}>
             <DashboardHome />
           </Route>
+          <AdminRoute path={`${path}/payment/:appointmentId`}>
+            <Payment />
+          </AdminRoute>
           <AdminRoute path={`${path}/makeAdmin`}>
             <MakeAdmin />
           </AdminRoute>

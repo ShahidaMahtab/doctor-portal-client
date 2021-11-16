@@ -80,6 +80,7 @@ const useFirebase = () => {
   };
   //observer user current state
   useEffect(() => {
+    setIsLoading(true);
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
@@ -98,13 +99,15 @@ const useFirebase = () => {
   }, [auth]);
   //admim
   useEffect(() => {
+    setIsLoading(true);
     const url = `https://ancient-eyrie-18743.herokuapp.com/users/${user.email}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
         console.log(data.admin);
         setAdmin(data.admin);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }, [user.email]);
   //log out
   const logOut = () => {
@@ -120,6 +123,7 @@ const useFirebase = () => {
   };
   //save user to db
   const saveUser = (email, displayName, method) => {
+    setIsLoading(true);
     const user = { email, displayName };
     fetch("https://ancient-eyrie-18743.herokuapp.com/users", {
       method: method,
@@ -133,7 +137,8 @@ const useFirebase = () => {
         if (data.insertedId || data.modifiedCount) {
           alert("info saved");
         }
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
   return {
     user,

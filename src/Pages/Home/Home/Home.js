@@ -7,6 +7,7 @@ import About from "../About/About";
 import AppoinmentBanner from "../AppoinmentBanner/AppoinmentBanner";
 import Banner from "../Banner/Banner";
 import Contact from "../Contact/Contact";
+import Doctors from "../Doctors/Doctors";
 import Features from "../Features/Features";
 import Services from "../Services/Services";
 
@@ -19,6 +20,7 @@ const Home = () => {
       <Services></Services>
       <About></About>
       <AppoinmentBanner></AppoinmentBanner>
+      <Doctors />
       <Testimonials></Testimonials>
       <Contact></Contact>
       <Footer></Footer>
